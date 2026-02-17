@@ -1,0 +1,1921 @@
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Dashboard Vacantes IDB</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body { background-color: #f4f6f9; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+            .card { margin-bottom: 20px; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
+            .card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+            .job-title { color: #004e70; font-weight: bold; }
+            .badge-loc { background-color: #119718; }
+            .badge-prog { background-color: #009ade; color: white; margin-bottom: 10px; }
+            .filter-section { background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+            .edu-box { background-color: #eef5f9; padding: 12px; border-left: 4px solid #009ade; border-radius: 4px; font-size: 0.85em; margin-bottom: 10px;}
+            .cat-badge { font-size: 0.75em; margin-right: 5px; margin-bottom: 5px; background-color: #6c757d; color: white; padding: 3px 8px; border-radius: 12px; display: inline-block;}
+            .tech-badge { font-size: 0.75em; margin-right: 4px; margin-bottom: 4px; background-color: #e04e2a; color: white; padding: 2px 6px; border-radius: 4px; display: inline-block; font-weight: bold;}
+            .divider-custom { margin: 10px 0; border-top: 1px solid #cce4f0; }
+            
+            /* --- OPTIMIZACIONES PARA MÓVIL --- */
+            @media (max-width: 768px) {
+                body { padding: 10px; } /* Menos margen exterior */
+                
+                /* Hace que los filtros se queden pegados arriba al hacer scroll */
+                .filter-section {
+                    position: sticky;
+                    top: 10px;
+                    z-index: 1000;
+                    padding: 15px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    margin-bottom: 20px;
+                }
+                
+                /* Ajustes de tamaño para lectura cómoda en teléfono */
+                .job-title { font-size: 1.15rem; }
+                .card-body { padding: 15px; }
+                .edu-box { padding: 10px; font-size: 0.8rem; }
+                
+                /* Botón más fácil de tocar con el pulgar */
+                .btn-mobile-full { width: 100%; margin-top: 15px !important; padding: 10px; font-weight: 500;}
+                
+                /* Separación visual entre los switches de filtro */
+                .form-switch { margin-top: 15px !important; padding-left: 2.5em; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="mb-1" style="color: #004e70;">🔍 IDB internship explorer</h2>
+            <h6 class="text-muted mb-4" style="font-style: italic;">Built by AQR</h6>
+            
+            <div class="filter-section row align-items-center">
+                <div class="col-md-4 mb-2 mb-md-0">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar palabras clave...">
+                </div>
+                <div class="col-md-4 mb-2 mb-md-0">
+                    <select id="categoryFilter" class="form-select">
+                        <option value="All">All areas of specialization</option>
+                        <option value="Public Policy & Administration">Public Policy & Administration</option>
+                        <option value="Economics & Business">Economics & Business</option>
+                        <option value="Data & Tech">Data, Analytics & Tech</option>
+                        <option value="Law & Legal">Law & Legal</option>
+                        <option value="Social Sciences & Urban">Social Sciences & Urban</option>
+                        <option value="Other">Otras áreas / General</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check form-switch mt-2 mt-md-0 d-flex justify-content-start justify-content-md-end align-items-center">
+                        <input class="form-check-input me-2" type="checkbox" id="graduateFilter" style="transform: scale(1.2);">
+                        <label class="form-check-label" for="graduateFilter"><strong>Only Graduate / Master</strong></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="jobContainer">
+    
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Data & Tech, Social Sciences & Urban" data-text="idb. urban innovation, evaluation & knowledge management intern education
+: an active graduate student in public policy, urban studies, economics, international development policy, data science, or a related field from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+technical skills
+: strong analytical and writing skills, familiarity with program or policy evaluation concepts, experience with qualitative and/or quantitative analysis, comfort working with structured documents, datasets, and analytical frameworks, interest in urban development, innovation, and public sector problem-solving. familiarity with dataset management, statistical packages, and basic coding is a plus. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2025 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Urban Innovation, Evaluation & Knowledge Management Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Public Policy, Urban Studies, Economics, International Development Policy, Data Science, or a related field from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">strong analytical and writing skills, familiarity with program or policy evaluation concepts, experience with qualitative and/or quantitative analysis, comfort working with structured documents, datasets, and analytical frameworks, interest in urban development, innovation, and public sector problem-solving. Familiarity with dataset management, sta...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span><span class="cat-badge">Social Sciences & Urban</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Urban-Innovation%2C-Evaluation-&amp;-Knowledge-Management-Intern/2565-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Economics & Business, Data & Tech" data-text="idb. visa master data intern education
+: an active undergraduate student in industrial, systems, or information engineering, data analytics / data science, computer science, or business administration with a focus on analytics, from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+power bi and intermediate/advanced excel. knowledge of sap and service now is desirable. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Visa Master Data Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Industrial, Systems, or Information Engineering, Data Analytics / Data Science, Computer Science, or Business Administration with a focus on Analytics, from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Power BI</span><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Power Bi and Intermediate/Advanced Excel. Knowledge of SAP and Service Now is desirable.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Visa-Master-Data-Intern/2503-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business" data-text="idb. operational program for connectivity, markets and finance support intern education
+: an active graduate student in economics or finance from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+previous experience in financial regulation, finance, and technology, including exposure to digital financial services and regulatory frameworks. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Operational Program for Connectivity, Markets and Finance Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Economics or Finance from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Previous experience in financial regulation, finance, and technology, including exposure to digital financial services and regulatory frameworks.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Operational-Program-for-Connectivity%2C-Markets-and-Finance-Support-Intern/2548-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Data & Tech, Law & Legal" data-text="idb. integrity risk management (irm) data and knowledge intern education
+: an active  graduate student  in economics, public policy, law, international development, data analytics, or a related field from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+data management and structuring (databases, excel, repositories)
+analytical and research skills (qualitative and quantitative analysis)
+knowledge management and systematization
+methodology and technical documentation drafting
+preparation of clear communication and knowledge products the offfice of institutional integrity is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. no especificado">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">No especificado</span>
+                            <h5 class="card-title job-title">IDB. Integrity Risk Management (IRM) Data and Knowledge Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student  in economics, public policy, law, international development, data analytics, or a related field from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Data management and structuring (databases, Excel, repositories)
+Analytical and research skills (qualitative and quantitative analysis)
+Knowledge management and systematization
+Methodology and technical doc...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span><span class="cat-badge">Law & Legal</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Integrity-Risk-Management-%28IRM%29-Data-and-Knowledge-Intern/2523-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech, Social Sciences & Urban" data-text="idb. civil society group intern education
+: an active graduate student in geography, geospatial science, or a related field, enrolled at an accredited university; demonstrated proficiency in gis tools and methods, including spatial analysis and geospatial data management.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management event.
+technical skills:
+good knowledge in gis platforms and data management. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Civil Society Group Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Geography, Geospatial Science, or a related field, enrolled at an accredited university; Demonstrated proficiency in GIS tools and methods, including spatial analysis and geospatial data management.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Good knowledge in GIS platforms and data management.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span><span class="cat-badge">Social Sciences & Urban</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Civil-Society-Group-Intern/2540-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech" data-text="idb invest. fx market monitoring, reporting & analytics intern - treasury investments education
+: an active graduate student in financial engineering from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and with excellent time management skills.
+technical skills:
+financial market data handling, financial modeling, python for quantitative analysis, fx analytics & modeling, databricks, knowledge of visualization libraries or bi tools (matplotlib, plotly, power bi, databricks sql dashboards) to support market intelligence outputs. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest. FX Market Monitoring, Reporting & Analytics Intern - Treasury Investments</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Financial Engineering from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">SQL</span><span class="tech-badge">Power BI</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Financial Market Data Handling, Financial Modeling, Python for Quantitative Analysis, FX Analytics & Modeling, Databricks, Knowledge of visualization libraries or BI tools (Matplotlib, Plotly, Power BI, Databricks SQL dashboards) to support market intelligence outputs.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest_-FX-Market-Monitoring%2C-Reporting-&amp;-Analytics-Intern-Treasury-Investments/2495-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Economics & Business, Data & Tech" data-text="idb invest- blended finance & impact intern education:
+an active undergraduate (bachelor’s) student in a quantitative or analytically rigorous field, such as mathematics (applied or theoretical), economics, finance, statistics, engineering, data science. the graduation date should be after the internship period.
+languages:
+languages: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills:
+results-driven and intellectually curious.
+strong analytical and problem-solving skills.
+collaborative and team oriented.
+clear written and verbal communicator.
+self-motivated, detail-oriented, and eager to learn.
+strong time-management skills.
+technical skills:
+quantitative analysis and data interpretation.
+financial modeling (excel required; other tools a plus).
+strong excel skills (including formulas, pivot tables, and scenario analysis).
+familiarity with basic corporate finance and investment concepts.
+experience with data analysis tools (e.g., python, r, stata, or similar) is a plus.
+interest in impact measurement, development finance, or climate finance strongly preferred. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive, paid opportunity based at idb group headquarters. it offers university students hands-on exposure to development finance and private-sector solutions, enabling them to gain professional-level experience through on-the-job learning.
+this internship will sit within the blended finance division and will focus on evaluating a portfolio of blended-finance projects from both financial and impact perspectives, supporting the mobilization of private capital for climate, sustainability, and inclusive growth outcomes in emerging markets. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest- Blended Finance & Impact Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate (bachelor’s) student in a quantitative or analytically rigorous field, such as Mathematics (applied or theoretical), Economics, Finance, Statistics, Engineering, Data Science. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">R</span><span class="tech-badge">Stata</span><span class="tech-badge">Excel</span><span class="tech-badge">Data Analysis</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Quantitative analysis and data interpretation.
+Financial modeling (Excel required; other tools a plus).
+Strong Excel skills (including formulas, pivot tables, and scenario analysis).
+Familiarity with basic corporate finance and investment concepts.
+Experience with data analysis tools (e.g., Python, R, Stata, or similar) is a plus.
+Interest in impac...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest-Blended-Finance-&amp;-Impact-Intern/2552-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business" data-text="idb. knowledge agenda in the andean region intern education
+: an active graduate student in economics from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+technical skills:
+comprehensive understanding of econometrics and its connection to other fields of economics. well-versed in modern analytical tools and quantitative methods, including panel data analysis, time series modeling, and machine learning techniques. proficient in the use of econometric software for data analysis and modeling. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Knowledge Agenda in the Andean Region Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Economics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Econometrics</span><span class="tech-badge">Data Analysis</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+Technical skills:
+Comprehensive understanding of econometrics and its connection to other fields of economics. Well-versed in modern analytical tools and quantitative methods, including panel data analysis, time series mode...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Knowledge-Agenda-in-the-Andean-Region-Intern/2532-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Economics & Business" data-text="idb. budget and financial monitoring intern education
+: an active undergraduate student in finance, accounting, business administration or audit from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills
+: advanced excel, power bi or similar analytics tools, financial/budgeting/audit knowledge, data analysis skills. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Budget and Financial Monitoring Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Finance, Accounting, Business Administration or Audit from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Power BI</span><span class="tech-badge">Excel</span><span class="tech-badge">Data Analysis</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills
+: Advanced Excel, Power BI or similar analytics tools, financial/budgeting/audit knowledge, data analysis skills.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Budget-and-Financial-Monitoring-Intern/2535-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business" data-text="idb invest - regions upstream intern education
+: an active graduate student in economics, finance, business administration, international development, or another relevant field  from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management skills.
+technical skills:
+econometrics & statistical analysis
+(regression analysis, causal inference basics, interpreting results)
+data management & analytics
+(python/r/other + excel for cleaning, visualization, and dashboarding) the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest - Regions Upstream Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Economics, Finance, Business Administration, International Development, or another relevant field  from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">R</span><span class="tech-badge">Excel</span><span class="tech-badge">Econometrics</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Econometrics & statistical analysis
+(regression analysis, causal inference basics, interpreting results)
+Data management & analytics
+(Python/R/other + Excel for cleaning, visualization, and dashboarding)</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest-Regions-Upstream-Intern/2553-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Law & Legal, Social Sciences & Urban" data-text="idb. transparency support intern education
+: an active graduate student in social sciences, law, journalism, communications, and/or other fields relevant from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+strong writing, editing, and document-organization abilities.
+understanding of transparency, governance, and information-disclosure concepts.
+ability to analyze and apply policy criteria, such as the access to information policy.
+detail-oriented with experience performing quality control of official documentation.
+proficiency in microsoft office (word, excel, sharepoint) and ai tools. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Transparency Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in social sciences, law, journalism, communications, and/or other fields relevant from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Strong writing, editing, and document-organization abilities.
+Understanding of transparency, governance, and information-disclosure concepts.
+Ability to analyze and apply policy criteria, such as the Access...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Law & Legal</span><span class="cat-badge">Social Sciences & Urban</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Transparency-Support-Intern/2567-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech" data-text="idb. global partnerships data analyst support intern education
+: an active  graduate student  in data science or similar, from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+power bi, salesforce, sharepoint, sql. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Global Partnerships Data Analyst Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student  in Data Science or similar, from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">SQL</span><span class="tech-badge">Power BI</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Power Bi, Salesforce, Sharepoint, SQL.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Global-Partnerships-Data-Analyst-Support-Intern/2499-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business, Social Sciences & Urban" data-text="idb. productivity and performance of cities support intern education
+: an active graduate student in economics or geography from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills
+: strong analytical and writing skills, experience with qualitative and/or quantitative analysis, comfort working with structured documents, datasets, and analytical frameworks, and interest in urban development. familiarity with dataset management, statistical packages, land-use analysis, econometrics, sub-regional network analysis and/or basic coding is a plus. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Productivity and Performance of Cities Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in economics or geography from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Econometrics</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills
+: strong analytical and writing skills, experience with qualitative and/or quantitative analysis, comfort working with structured documents, datasets, and analytical frameworks, and interest in urban develop...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Social Sciences & Urban</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Productivity-and-Performance-of-Cities-Support-Intern/2549-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business" data-text="idb. communications & partner intelligence intern education
+: an active graduate student in communications, international development, marketing, public affairs, public administration, journalism, public relations and other related fields. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management event.
+technical skills:
+microsoft office suite (excel, powerpoint, and word), salesforce (crm) is a plus. outstanding copywriting and editing skills in both english and spanish. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Communications & Partner Intelligence Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Communications, International Development, Marketing, Public Affairs, Public Administration, Journalism, Public Relations and other related fields. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Microsoft Office Suite (Excel, PowerPoint, and Word), Salesforce (CRM) is a plus. Outstanding copywriting and editing skills in both English and Spanish.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Communications-&amp;-Partner-Intelligence-Intern/2539-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business" data-text="idb. research for infrastructure and energy sector intern education
+: an active graduate student in economics or public policy from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+ability to conduct empirical work at the graduate student level. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. you will work in the infrastructure and energy sector (ine). graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Research for Infrastructure and Energy Sector Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in economics or public policy from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Ability to conduct empirical work at the graduate student level.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Research-for-Infrastructure-and-Energy-Sector-Intern/2518-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech" data-text="idb. data collection and analysis for disaster and climate risk portfolio monitoring internship education
+: an active graduate student in sustainability, climate change, environmental and social risk management and/or data management from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+intermediate to advance knowledge on climate change risk, environmental and social sustainability and demonstrated experience in data management, mapping tools and similar. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Data Collection and Analysis for Disaster and Climate Risk Portfolio Monitoring Internship</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in sustainability, climate change, environmental and social risk management and/or data management from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Intermediate to advance knowledge on climate change risk, environmental and social sustainability and demonstrated experience in data management, mapping tools and similar.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Data-Collection-and-Analysis-for-Disaster-and-Climate-Risk-Portfolio-Monitoring-Internship/2488-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Economics & Business" data-text="idb invest. corporate communications intern education
+: an active undergraduate student in communications, marketing, business or related field from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management event. detail-oriented with strong organizational and problem-solving skills, with the ability to work independently and collaboratively across teams
+technical skills:
+proficiency in microsoft office suite, familiarity with digital tools, social media platforms, and knowledge of photo and video editing tools. the idb group is looking for an active undergraduate student
+to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest. Corporate Communications Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Communications, Marketing, Business or related field from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Proficiency in Microsoft Office suite, familiarity with digital tools, social media platforms, and knowledge of photo and video editing tools.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest_-Corporate-Communications-Intern/2504-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration" data-text="esg knowledge management & capacity building intern education
+: an active graduate student in information management, knowledge management, communications, international development, environmental studies, or a similar field
+from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english is required; a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills
+: strong technical skills in managing digital content, organizing files systematically, and ensuring consistency in formatting and metadata. experience in event organization and familiarity with document management systems are a plus. the role requires a certain level of diplomacy and independence, along with attention to detail, strong interpersonal skills, and a systemic mindset. familiarity with esg issues and/or international development will be beneficial for understanding the context and contributing meaningfully to the team’s work. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">ESG Knowledge Management & Capacity Building Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Information Management, Knowledge Management, Communications, International Development, Environmental Studies, or a similar field</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills
+: Strong technical skills in managing digital content, organizing files systematically, and ensuring consistency in formatting and metadata. Experience in event organization and familiarity with document man...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/ESG-Knowledge-Management-&amp;-Capacity-Building-Intern/2498-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Law & Legal" data-text="idb invest. legal department's compliance unit intern education
+: an active undergraduate in law from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english. a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management skills.
+technical skills:
+proficiency with ms office applications (including excel) is required. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest. Legal Department's Compliance Unit Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate in Law from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Proficiency with MS Office applications (including Excel) is required.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Law & Legal</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest_-Legal-Department&apos;s-Compliance-Unit-Intern/2497-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Data & Tech" data-text="idb invest. development effectiveness and impact measurement for private sector operations intern education
+: an active graduate student  in economics, applied economics, public policy, data science from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management skills.
+technical skills:
+data analysis, economic analysis and/or impact evaluation expertise will be valuable. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest. Development Effectiveness and Impact Measurement for Private Sector Operations Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student  in economics, applied economics, public policy, data science from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Data Analysis</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Data analysis, economic analysis and/or impact evaluation expertise will be valuable.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest_-Development-Effectiveness-and-Impact-Measurement-for-Private-Sector-Operations-Intern/2506-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech" data-text="idb. generative artificial intelligence and data analysis intern education:
+an active graduate student in systems engineer, computer science, data science or any related field from an accredited university. the graduation date should be after the internship period.
+technical skills:
+natural language processing (nlp), machine learning (ml), generative artificial intelligence (genai), sql, phyton, and data visualization with powerbi.
+languages:
+fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Generative Artificial Intelligence and Data Analysis Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Systems Engineer, Computer Science, Data Science or any related field from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">SQL</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">natural language processing (NLP), Machine Learning (ML), Generative Artificial Intelligence (GenAI), SQL, Phyton, and data visualization with PowerBI.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Generative-Artificial-Intelligence-and-Data-Analysis-Intern/2492-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech" data-text="idb. disaster risk data & analytics intern education
+: an active graduate student in gis / geospatial analysis, data science, disaster risk management or related disciplines from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+strong proficiency in analytical and geospatial software, including hands‑on experience with gis platforms (arcgis, qgis or similar) and advanced skills in power bi for dashboard development, data modeling, and the application of data visualization principles and best practices. basic understanding of exposure and vulnerability models and how these inform disaster risk analytics. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the csd/drm unit seeks a highly motivated graduate student to support the development of disaster risk information products within the idb’s riskhub platform, including exposure model research, user documentation, data visualization improvements, and analytics for the regional review of building codes.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Disaster Risk Data & Analytics Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in GIS / Geospatial Analysis, Data Science, Disaster Risk Management or related disciplines from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Power BI</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Strong proficiency in analytical and geospatial software, including hands‑on experience with GIS platforms (ArcGIS, QGIS or similar) and advanced skills in Power BI for dashboard development, data modeling,...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Disaster-Risk-Data-&amp;-Analytics-Intern/2511-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business" data-text="idb. trade monitoring & analysis intern education
+: an active graduate student in economics, international trade, international relations, business administration, economic development, and/or related fields from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+advanced proficiency in microsoft excel, including data cleaning, organization, and basic analytical functions; working knowledge of stata for data management and applied statistical analysis; strong analytical skills, with the ability to interpret trade, market, and economic data; solid quantitative skills for handling large datasets related to trade, services, and commodity prices; strong writing skills, with the ability to clearly communicate analytical findings in written form; attention to detail and ability to ensure data accuracy and consistency across outputs. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Trade Monitoring & Analysis Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Economics, International Trade, International Relations, Business Administration, Economic Development, and/or related fields from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Stata</span><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Advanced proficiency in Microsoft Excel, including data cleaning, organization, and basic analytical functions; Working knowledge of Stata for data management and applied statistical analysis; Strong analyt...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Trade-Monitoring-&amp;-Analysis-Intern/2514-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Data & Tech" data-text="idb. communications, knowledge management, and capacity building for disaster & climate risk intern education
+: an active graduate student in communications, international relations, environmental engineering, climate science, disaster risk management from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english, with a working knowledge of one other bank language (spanish, french or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+technical skills
+:
+effective interpersonal skills, with demonstrated ability to engage different stakeholders in multicultural environments.
+demonstrated ability to work effectively in cross-functional teams, share knowledge, and respect the points of view of others.
+evidenced open-minded ability to learn new concepts, tools, and processes, and showcase them to others.
+proven capacity to work efficiently and proactively, with an eye for detail.
+excellent oral and written communication skills in english and spanish, with the ability to communicate clearly and effectively.
+demonstrated knowledge of graphic design principles, industry-standard applications, and web technologies.
+familiarity with online performance measurement and impact analysis tools, with the ability to research, identify, and map intended audiences and stakeholders, and leverage communication tools and methodologies (such as online monitoring, web analytics, or other tools) to assess their information needs.
+sufficient understanding of project management and due diligence concepts to propose and develop related drafts of online communications strategies, with the ability to showcase project management tools, methodologies, and processes dedicated to identifying and mitigating project risks through established due diligence and compliance strategies.
+previous experience in latin america and the caribbean is a plus.
+familiarity with the idb's work and its environmental and social safeguards related to disaster and climate risk is a plus. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Communications, Knowledge Management, and Capacity Building for Disaster & Climate Risk Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in communications, international relations, environmental engineering, climate science, disaster risk management from an accredited university. The graduation date should be after the internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+Technical Skills
+:
+Effective interpersonal skills, with demonstrated ability to engage different stakeholders in multicultural environments.
+Demonstrated ability to work effectively in cross-functional teams, share knowledg...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Communications%2C-Knowledge-Management%2C-and-Capacity-Building-for-Disaster-&amp;-Climate-Risk-Intern/2494-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Law & Legal" data-text="idb. office of ethics investigations intern education
+: an active graduate student in criminal law, litigation, anti-corruption, international law, compliance, and/or ethics from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management events.
+technical skills:
+institutional ethics, research, proficiency in microsoft word, excel, and powerpoint. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning.
+the office of ethics (eth/eth) is responsible for providing impartial assistance to idb group employees and management in reviewing and resolving matters regarding ethics and conduct in the workplace in a manner that contributes to good governance and helps to preserve and promote institutional integrity. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Office of Ethics Investigations Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in criminal law, litigation, anti-corruption, international law, compliance, and/or ethics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Institutional ethics, research, proficiency in Microsoft Word, Excel, and PowerPoint.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Law & Legal</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Office-of-Ethics-Investigations-Intern/2545-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business" data-text="idb. treasury operations intern - capital markets & debt service education:
+an active  graduate student  in finance or economics from an accredited university. the graduation date should be after the internship period.
+languages:
+fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills:
+learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills
+: knowledge on capital markets, fixed income and financial instruments. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Treasury Operations Intern - Capital Markets & Debt Service</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student  in Finance or Economics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills
+: Knowledge on Capital Markets, Fixed Income and Financial Instruments.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Treasury-Operations-Intern-Capital-Markets-&amp;-Debt-Service/2531-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Law & Legal" data-text="idb. operations & coordination support intern education
+: an active graduate student in public administration, political science, international relations, business administration, project management, international development, security studies, law or related fields, from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+proficiency in microsoft office suite (word, excel, powerpoint); basic familiarity with data management and documentation tools; ability to use virtual collaboration platforms (e.g., teams, zoom); strong organizational and planning skills to manage schedules, meetings, and events; basic knowledge of data visualization or presentation tools (e.g., canva); familiarity with document sharing and knowledge management systems used in international organizations. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Operations & Coordination Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Public Administration, Political Science, International Relations, Business Administration, Project Management, International Development, Security Studies, Law or related fields, from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Proficiency in Microsoft Office Suite (Word, Excel, PowerPoint); Basic familiarity with data management and documentation tools; Ability to use virtual collaboration platforms (e.g., Teams, Zoom); Strong or...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span><span class="cat-badge">Law & Legal</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Operations-&amp;-Coordination-Support-Intern/2484-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech" data-text="idb. ai‑driven procurement systems intern education
+: an active  graduate student  in data science or related fields
+from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+machine learning (ml), natural language processing (nlp), language large models (llms), python, data engineering, apis, cloud tools. knowledge of procurement basics, workflow mapping, and user-centered design is also preferred. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. AI‑Driven Procurement Systems Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student  in Data Science or related fields</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Machine Learning (ML), Natural Language Processing (NLP), Language Large Models (LLMs), Python, data engineering, APIs, cloud tools. Knowledge of procurement basics, workflow mapping, and user-centered desi...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-AI%E2%80%91Driven-Procurement-Systems-Intern/2501-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Other" data-text="idb. intern to support systems ux/ui design and communications education
+: an active undergraduate student in graphic design, ux/ui design, interaction design, or a related field from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+proficiency in graphic design software (adobe creative suite, canva, or similar)
+experience with web and ux/ui design tools (figma, wordpress, or similar)
+understanding of ux/ui design principles, including usability and accessibility
+familiarity with digital communication strategies and content presentation
+ability to create multimedia content such as user guides, infographics, and visual documentation the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Intern to Support Systems UX/UI Design and Communications</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Graphic Design, UX/UI Design, Interaction Design, or a related field from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Proficiency in graphic design software (Adobe Creative Suite, Canva, or similar)
+Experience with web and UX/UI design tools (Figma, WordPress, or similar)
+Understanding of UX/UI design principles, including...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Other</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Intern-to-Support-Systems-UXUI-Design-and-Communications/2566-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Data & Tech" data-text="idb. digital finance operations intern education
+: an active graduate student in in finance, accounting, business administration, economics, public administration (with finance or operations focus), system engineering, data analytics from an accredited university. the graduation date should be after the internship period.
+languages:
+fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills:
+learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+intelligent process automation using power automate + ai builder
+data quality engineering with python + sql for profiling, validation, and anomaly detection
+analytics & reporting using power bi (power query, data modeling, dax) with basic automl/ forecasting the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Digital Finance Operations Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in in finance, accounting, business administration, economics, public administration (with finance or operations focus), system engineering, data analytics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">SQL</span><span class="tech-badge">Power BI</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Intelligent Process Automation using Power Automate + AI Builder
+Data Quality Engineering with Python + SQL for profiling, validation, and anomaly detection
+Analytics & Reporting using Power BI (Power Query...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Digital-Finance-Operations-Intern/2526-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Data & Tech, Social Sciences & Urban" data-text="idb. ai-enabled geospatial analysis for digital infrastructure and connectivity intern education
+: an active undergraduate student in geography, geospatial sciences, spatial data science, gis, urban planning with gis concentration or related disciplines from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+geospatial analysis using ai. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality. this undergraduate student in geography, or a closely related field (geospatial sciences, spatial data science, gis, or similar) to support geospatial analysis and ai-enabled spatial modeling for digital infrastructure and connectivity projects across latin america and the caribbean. this internship will contribute to strengthening the bank’s use of advanced geospatial tools and artificial intelligence for infrastructure planning, connectivity diagnostics, and project monitoring.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB. AI-Enabled Geospatial Analysis for Digital Infrastructure and Connectivity Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Geography, Geospatial Sciences, Spatial Data Science, GIS, Urban Planning with GIS concentration or related disciplines from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Geospatial analysis using AI.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span><span class="cat-badge">Social Sciences & Urban</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-AI-Enabled-Geospatial-Analysis-for-Digital-Infrastructure-and-Connectivity-Intern/2547-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business" data-text="idb. state capacity building for development effectiveness intern education
+: an active graduate student in public policy, economics or public administration from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+excellent analytical abilities to integrate theoretical concepts with practical experience. familiarity with public policy literature, especially in the areas of state capacity, public sector management, and political economy. proficient writing and communication capabilities. experience in government organizations is highly desirable. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. State Capacity Building for Development Effectiveness Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in public policy, economics or public administration from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Excellent analytical abilities to integrate theoretical concepts with practical experience. Familiarity with public policy literature, especially in the areas of state capacity, public sector management, an...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-State-Capacity-Building-for-Development-Effectiveness-Intern/2550-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business" data-text="idb. monitoring, evaluation and effectiveness of public policies intern education: an active graduate student in economics from an accredited university. the graduation date should be after the internship period.
+languages: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+technical skills:
+experience in data management and analysis of programming packages and diverse databases, monitoring and evaluation of public policies, and econometric methods. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Monitoring, Evaluation and Effectiveness of Public Policies Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Economics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+Technical skills:
+Experience in data management and analysis of programming packages and diverse databases, monitoring and evaluation of public policies, and econometric methods.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Monitoring%2C-Evaluation-and-Effectiveness-of-Public-Policies-Intern/2509-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business, Data & Tech" data-text="idb. connect americas (ca) support intern education
+: an active graduate student in computer science, data science, information systems, economics/business analytics, or a related field, with strong applied skills in data analysis and rapid product prototyping from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent at time management.
+technical skills:
+the ideal candidate has hands-on experience using ai tools to accelerate research, content production, and lightweight software development (e.g., chatgpt / claude / gemini for drafting and synthesis; perplexity for source discovery; notebook lm for working with large internal documents; github copilot or cursor for coding; python + pandas for data processing; and low-code automation tools like zapier/make/n8n). familiarity with api integration, basic web app prototyping (e.g., streamlit, next.js, or retool), and responsible ai practices (privacy, bias awareness, proper citation/attribution, and human-in-the-loop review) is expected. comfort translating technical concepts into practical guidance for smes and non-technical audiences. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Connect Americas (CA) Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Computer Science, Data Science, Information Systems, Economics/Business Analytics, or a related field, with strong applied skills in data analysis and rapid product prototyping from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">Data Analysis</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">The ideal candidate has hands-on experience using AI tools to accelerate research, content production, and lightweight software development (e.g., ChatGPT / Claude / Gemini for drafting and synthesis; Perplexity for source discovery; Notebook LM for working with large internal documents; GitHub Copilot or Cursor for coding; Python + pandas for data...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Connect-Americas-%28CA%29-Support-Intern/2512-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business, Data & Tech" data-text="idb. internal audit, quality assurance, methodology & analytics intern education:
+active graduate student in internal audit, risk management, finance, information systems, it, management information systems, computer science, data science, or related fields from an accredited university. graduation should occur after the internship period.
+languages:
+fluency in english; working knowledge of another bank language (spanish, french, or portuguese) is a plus.
+key skills:
+curious and committed to continuous learning; collaborates effectively and shares knowledge to strengthen quality practices; communicates clearly to support consistency and improvement; applies a client- and stakeholder-focused mindset; shows initiative, adaptability, and openness to new tools and methods.
+technical skills:
+knowledge of quality assurance and improvement practices, including process documentation, quality reviews, and continuous improvement, preferably in internal or external audit. able to apply data analytics for qaip activities, such as automating reviews, validating checklists, analyzing trends, and monitoring methodology adherence. proficient in microsoft 365, sharepoint, power bi, and collaboration platforms; familiarity with audit or quality management software is an asset. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Internal Audit, Quality Assurance, Methodology & Analytics Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">Active graduate student in Internal Audit, Risk Management, Finance, Information Systems, IT, Management Information Systems, Computer Science, Data Science, or related fields from an accredited university. Graduation should occur after the internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Power BI</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Curious and committed to continuous learning; collaborates effectively and shares knowledge to strengthen quality practices; communicates clearly to support consistency and improvement; applies a client- and stakeholder-focused mindset; shows initiative, adaptability, and openness to new tools and methods.
+Technical Skills:
+Knowledge of quality ass...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Internal-Audit%2C-Quality-Assurance%2C-Methodology-&amp;-Analytics-Intern/2482-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Law & Legal" data-text="idb. ethics prevention intern education
+: an active graduate student in criminal law, litigation, anti-corruption, international law, compliance, and/or ethics from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management events.
+technical skills:
+institutional ethics, research, proficiency in microsoft word, excel, and powerpoint.
+notes:
+submit your
+resume, academic transcripts (official or unofficial), and university letter
+certifying your student status when applying.
+if you submit an unofficial academic transcript at the time of applying, you will be requested to present an official one if you move forward.
+academic transcripts and university letters should be issued within the last three months.
+for graduate students, a minimum of 50% of coursework must be completed when applying.
+applications without the requested documentation will be disqualified.
+save each file in a pdf format with your name and subject.
+do not
+send copies of your degree certificates or other courses.
+you must be available to work full-time (40 hours per week) from june 16th to august 15th, 2026. these dates are fixed and cannot be modified. interns must complete their assignments within this period.
+if you are an international student in the u.s.a
+., your work authorization is through cpt or opt. consult your school advisor before applying.
+you must be able to work 40 hours per week;
+many international students are limited to working part-time, depending on their academic standing. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning.
+the office of ethics (eth/eth) is responsible for providing impartial assistance to idb group employees and management in reviewing and resolving matters regarding ethics and conduct in the workplace in a manner that contributes to the good governance and helps to preserve and promote institutional integrity. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Ethics Prevention Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in criminal law, litigation, anti-corruption, international law, compliance, and/or ethics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Institutional ethics, research, proficiency in Microsoft Word, Excel, and PowerPoint.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Law & Legal</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Ethics-Prevention-Intern/2546-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Data & Tech, Social Sciences & Urban" data-text="idb. gis data and documentation support intern education
+: an active graduate student in a relevant quantitative and computational field, such as geography, gis, computer sciences, environmental sciences, environmental engineering, urban planning, or a related area from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english, with a working knowledge of one other bank language (spanish, french or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+technical skills
+:
+familiarity with analyzing geospatial data and creating maps using gis software such as arcgis, qgis, google earth engine, or similar tools.
+basic skills in organizing and managing geospatial data in databases.
+ability to follow data management and governance guidelines.
+willingness to assist in quantitative and qualitative analysis tasks.
+interest in learning how to match the team’s needs with appropriate gis tools and technologies.
+good understanding of microsoft excel or willingness to learn and apply excel for data management and analysis.
+proficiency with other ms office tools (word, powerpoint).
+basic understanding of how gis is applied in international development projects. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. GIS Data and Documentation Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in a relevant quantitative and computational field, such as Geography, GIS, Computer Sciences, Environmental Sciences, Environmental Engineering, Urban Planning, or a related area from an accredited university. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+Technical skills
+:
+Familiarity with analyzing geospatial data and creating maps using GIS software such as ArcGIS, QGIS, Google Earth Engine, or similar tools.
+Basic skills in organizing and managing geospatial data in data...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Data & Tech</span><span class="cat-badge">Social Sciences & Urban</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-GIS-Data-and-Documentation-Support-Intern/2487-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Other" data-text="idb. data analyst intern education
+: an active  graduate student  in areas indicated above from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+technical skills:
+python
+machine learning algorithms and advanced data analytics techniques
+powerbi
+microsoft excel
+generative ai the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Data Analyst Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student  in areas indicated above from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+Technical skills:
+Python
+Machine Learning Algorithms and advanced data analytics techniques
+PowerBI
+Microsoft Excel
+Generative AI</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Other</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Data-Analyst-Intern/2486-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business" data-text="idb. internship with the climate change and sustainable development sector front office education
+: an active graduate student in business administration, communications or information systems from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+technical skills:
+microsoft office, particularly word, excel, powerpoint and teams. experience working with sharepoint websites and software related to information management is desirable. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Internship with the Climate Change and Sustainable Development Sector Front Office</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in business administration, communications or information systems from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things.
+Technical skills:
+Microsoft office, particularly Word, Excel, PowerPoint and Teams. Experience working with SharePoint websites and software related to information management is desirable.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Internship-with-the-Climate-Change-and-Sustainable-Development-Sector-Front-Office/2507-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Economics & Business, Data & Tech" data-text="economic research intern using new data tools in the caribbean education
+: an active  graduate student in economics, economic policy, data science or similar fields from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+knowledge of large language models and ai tools, python, and r. experience working with unstructured data and nowcasting would be preferred but not necessary. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning.
+you will work in economics team part country department caribbean group. the department leads the idb group engagement with its caribbean member countries, directing policy dialogue and the preparation, execution, and monitoring of country and regional strategies. it oversees the design, processing, negotiation, and administration of both public‑sector and private‑sector operations, ensuring alignment with institutional priorities and country‑specific development objectives.
+about the research projects. this project aims at estimating country-specific models that, based on technologies using high frequency data available in real time or quasi-real time, forecast quarterly economic growth in barbados, jamaica, guyana, trinidad and suriname with high accuracy. the study will leverage state-of-the-art nowcasting models developed with machine learning technologies in order to exploit variation from real-time data in forecasting economic activity. another research project uses large language models to look at the uptake of reforms following loans and other interventions. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">Economic Research Intern Using New Data Tools in the Caribbean</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student in Economics, economic policy, data science or similar fields from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">R</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Knowledge of large language models and AI tools, Python, and R. Experience working with unstructured data and Nowcasting would be preferred but not necessary.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/Economic-Research-Intern-Using-New-Data-Tools-in-the-Caribbean/2570-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Economics & Business, Data & Tech" data-text="idb invest. green advisory & market creation: data analytics intern education
+: an active undergraduate student in business and finance, engineering, policy, or environmental sciences from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+soft skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management skills.
+technical skills:
+knowledge of data analysis skills are required. work experience in latin america and the caribbean is desirable. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB Invest. Green Advisory & Market Creation: Data Analytics Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in business and finance, engineering, policy, or environmental sciences from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Data Analysis</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Knowledge of data analysis skills are required. Work experience in Latin America and the Caribbean is desirable.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-Invest_-Green-Advisory-&amp;-Market-Creation-Data-Analytics-Intern/2519-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Other" data-text="idb. intern to support translation and documents section education
+: an active undergraduate student in language studies/translations from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: results-driven, team-oriented, inclusive, collaborative, innovative, and client-oriented, with strong self-motivation, eagerness to learn, and excellent time-management and communication skills. ability to work under pressure and meet tight deadlines.
+technical skills:
+experience in using computer-assisted translation tools and terminology management software is desirable. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Intern to Support Translation and Documents Section</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Language Studies/Translations from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Results-driven, team-oriented, inclusive, collaborative, innovative, and client-oriented, with strong self-motivation, eagerness to learn, and excellent time-management and communication skills. Ability to work under pressure and meet tight deadlines.
+Technical skills:
+Experience in using computer-assisted translation tools and terminology manageme...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Other</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Intern-to-Support-Translation-and-Documents-Section/2568-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Data & Tech" data-text="idb. data analysis intern to support the education division education: an active graduate student in economics, statistics, computer science, public policy and education from an accredited university. the graduation date should be after the internship period.
+languages: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills: data processing and analysis in stata, r. experience working with geospatial data in arcgis or python and github are considered a plus. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Data Analysis Intern to Support the Education Division</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in Economics, Statistics, Computer Science, Public Policy and Education from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Python</span><span class="tech-badge">R</span><span class="tech-badge">Stata</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills: Data processing and analysis in Stata, R. Experience working with geospatial data in ArcGIS or Python and GitHub are considered a plus.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span><span class="cat-badge">Data & Tech</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Data-Analysis-Intern-to-Support-the-Education-Division/2521-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Public Policy & Administration" data-text="idb x america250: diplomatic, cultural and academic program intern education
+: an active undergraduate student in international relations, cultural studies, and/or communications/journalism from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+proficiency in microsoft office (outlook, word, excel, powerpoint).
+ability to manage shared calendars, schedule meetings, and coordinate virtual and in-person meetings (e.g., microsoft teams, zoom).
+basic project coordination skills, including tracking timelines, deadlines, and action items.
+strong written communication skills for drafting follow-up emails, summaries, and internal notes.
+basic research skills, including sourcing, synthesizing, and summarizing information from institutional and public sources.
+ideal but not required: familiarity with collaborative work environments and shared document platforms (e.g., sharepoint, onedrive). the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB x America250: Diplomatic, Cultural and Academic Program Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in International Relations, Cultural Studies, and/or Communications/Journalism from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Proficiency in Microsoft Office (Outlook, Word, Excel, PowerPoint).
+Ability to manage shared calendars, schedule meetings, and coordinate virtual and in-person meetings (e.g., Microsoft Teams, Zoom).
+Basic ...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB-x-America250-Diplomatic%2C-Cultural-and-Academic-Program-Intern/2538-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration" data-text="idb. structured partnerships support intern education
+: an active graduate student in international development, international relations, foreign service, or related fields from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management event.
+technical skills:
+microsoft office suite (excel, powerpoint, and word), bloomberg market concepts. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Structured Partnerships Support Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active graduate student in International Development, International Relations, Foreign Service, or related fields from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">Result-driven, collaborative, innovative, client-oriented, strong communicator, self-motivated, eager to learn, and excellent time management event.
+Technical skills:
+Microsoft Office Suite (Excel, PowerPoint, and Word), Bloomberg Market Concepts.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Structured-Partnerships-Support-Intern/2542-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="false" data-category="Economics & Business" data-text="idb. intern to support modeling the impact of tax volatility on the economy education
+: an active undergraduate student in economics from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+macroeconomic modeling, macro econometrics, knowledge of fiscal policy. the idb group is looking for an active undergraduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. undergraduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Undergraduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Intern to Support Modeling the Impact of Tax Volatility on the Economy</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active undergraduate student in Economics from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Econometrics</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+macroeconomic modeling, macro econometrics, knowledge of fiscal policy.</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Intern-to-Support-Modeling-the-Impact-of-Tax-Volatility-on-the-Economy/2564-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business" data-text="idb. culture evolution & leadership development intern education
+: an active  graduate student in human resources, business administration, organizational psychology, international relations, public policy, communications, or related fields, from an accredited university. the graduation date should be after the internship period.
+languages
+: fluency in english with a working knowledge of one other bank language (spanish, french, or portuguese) is a plus.
+key skills
+: learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+technical skills:
+strong skills in ms office (powerpoint, excel, word) with the ability to produce high-quality presentations and written products; research and synthesis skills; strong writing and editing in english; experience with collaboration tools (e.g., teams, sharepoint, miro or similar) is a plus; basic data organization and analysis skills (e.g., working with simple datasets, summaries, and dashboards) is a plus. the idb group is looking for an active graduate student to be hired as an intern under the consultant modality.
+the 2026 summer internship program is a competitive paid opportunity, based in headquarters, for university students from member countries to learn about development work and corporate management of the bank, and to acquire work experience at the professional level through on-the-job learning. graduate intern">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge badge-prog d-inline-block w-auto" style="align-self: flex-start;">Graduate Intern</span>
+                            <h5 class="card-title job-title">IDB. Culture Evolution & Leadership Development Intern</h5>
+                            <h6 class="card-subtitle mb-3 text-muted" style="font-size: 0.9em;">
+                                <span class="badge badge-loc">Washington DC</span> <br><br> 📅 Cierre: 3/12/2026 11:59 PM EST
+                            </h6>
+                            
+                            <div class="edu-box">
+                                <strong>🎓 Education:</strong><br>
+                                <span style="color: #444;">An active  graduate student in Human Resources, Business Administration, Organizational Psychology, International Relations, Public Policy, Communications, or related fields, from an accredited University. The graduation date should be after the Internship period.</span>
+                                <hr class="divider-custom">
+                                <strong>💻 Technical skills:</strong><br>
+                                <div style="margin-bottom: 4px;"><span class="tech-badge">Excel</span></div>
+                                <span style="color: #666; font-size: 0.9em; font-style: italic;">learn continuously, collaborate and share knowledge, focus on clients, communicate and influence, innovate and try new things
+Technical skills:
+Strong skills in MS Office (PowerPoint, Excel, Word) with the ability to produce high-quality presentations and written products; research and synthesis skills; strong writing and editing in English; experi...</span>
+                            </div>
+                            
+                            <div class="mb-2" style="flex-grow: 1;">
+                                <span class="cat-badge">Public Policy & Administration</span><span class="cat-badge">Economics & Business</span>
+                            </div>
+                            
+                            <a href="https://jobs.iadb.org/job/IDB_-Culture-Evolution-&amp;-Leadership-Development-Intern/2505-en_US" target="_blank" class="btn btn-outline-primary btn-sm mt-auto btn-mobile-full" style="align-self: flex-start;">Ver detalle en IDB</a>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+        <script>
+            const searchInput = document.getElementById('searchInput');
+            const graduateFilter = document.getElementById('graduateFilter');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const jobCards = document.querySelectorAll('.job-card');
+
+            function filterJobs() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const showOnlyGraduate = graduateFilter.checked;
+                const selectedCategory = categoryFilter.value;
+
+                jobCards.forEach(card => {
+                    const text = card.getAttribute('data-text');
+                    const isGraduate = card.getAttribute('data-graduate') === 'true';
+                    const categories = card.getAttribute('data-category');
+                    
+                    const matchesSearch = text.includes(searchTerm);
+                    const matchesGraduate = showOnlyGraduate ? isGraduate : true;
+                    const matchesCategory = selectedCategory === 'All' ? true : categories.includes(selectedCategory);
+
+                    if (matchesSearch && matchesGraduate && matchesCategory) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', filterJobs);
+            graduateFilter.addEventListener('change', filterJobs);
+            categoryFilter.addEventListener('change', filterJobs);
+        </script>
+    </body>
+    </html>
+    
