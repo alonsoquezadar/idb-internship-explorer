@@ -1,81 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard Vacantes IDB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --idb-deep: #002A3A;
+            --idb-blue: #005D8F;
+            --idb-sky: #0094D4;
+            --idb-accent: #00B4D8;
+            --idb-light: #E8F4F8;
+            --idb-green: #0A8754;
+            --idb-green-soft: #E6F5ED;
+            --idb-red: #D64933;
+            --idb-warm: #F7F4EF;
+            --idb-sand: #FAF9F7;
+            --card-radius: 14px;
+            --shadow-sm: 0 1px 3px rgba(0,42,58,0.06), 0 1px 2px rgba(0,42,58,0.04);
+            --shadow-md: 0 4px 16px rgba(0,42,58,0.08), 0 2px 6px rgba(0,42,58,0.04);
+            --shadow-lg: 0 12px 40px rgba(0,42,58,0.12), 0 4px 12px rgba(0,42,58,0.06);
+        }
 
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>Dashboard Vacantes IDB</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            body { background-color: #f4f6f9; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-            .card { margin-bottom: 20px; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
-            .card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-            .job-title { color: #004e70; font-weight: bold; }
-            .badge-loc { background-color: #119718; }
-            .badge-prog { background-color: #009ade; color: white; margin-bottom: 10px; }
-            .filter-section { background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-            .edu-box { background-color: #eef5f9; padding: 12px; border-left: 4px solid #009ade; border-radius: 4px; font-size: 0.85em; margin-bottom: 10px;}
-            .cat-badge { font-size: 0.75em; margin-right: 5px; margin-bottom: 5px; background-color: #6c757d; color: white; padding: 3px 8px; border-radius: 12px; display: inline-block;}
-            .tech-badge { font-size: 0.75em; margin-right: 4px; margin-bottom: 4px; background-color: #e04e2a; color: white; padding: 2px 6px; border-radius: 4px; display: inline-block; font-weight: bold;}
-            .divider-custom { margin: 10px 0; border-top: 1px solid #cce4f0; }
-            
-            /* --- OPTIMIZACIONES PARA MÓVIL --- */
-            @media (max-width: 768px) {
-                body { padding: 10px; } /* Menos margen exterior */
-                
-                /* Hace que los filtros se queden pegados arriba al hacer scroll */
-                .filter-section {
-                    position: sticky;
-                    top: 10px;
-                    z-index: 1000;
-                    padding: 15px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    margin-bottom: 20px;
-                }
-                
-                /* Ajustes de tamaño para lectura cómoda en teléfono */
-                .job-title { font-size: 1.15rem; }
-                .card-body { padding: 15px; }
-                .edu-box { padding: 10px; font-size: 0.8rem; }
-                
-                /* Botón más fácil de tocar con el pulgar */
-                .btn-mobile-full { width: 100%; margin-top: 15px !important; padding: 10px; font-weight: 500;}
-                
-                /* Separación visual entre los switches de filtro */
-                .form-switch { margin-top: 15px !important; padding-left: 2.5em; }
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--idb-sand);
+            padding: 0;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a2b34;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== HERO HEADER ===== */
+        .hero-header {
+            background: linear-gradient(135deg, var(--idb-deep) 0%, var(--idb-blue) 60%, var(--idb-sky) 100%);
+            padding: 48px 0 36px;
+            margin-bottom: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0,180,216,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-header::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            left: -5%;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .hero-header h2 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: #fff;
+            margin: 0 0 4px;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+        .hero-header h6 {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            font-weight: 400;
+            font-style: italic;
+            margin: 0;
+            position: relative;
+        }
+        .hero-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            padding: 6px 16px;
+            margin-top: 16px;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.85);
+            font-weight: 500;
+            position: relative;
+        }
+        .hero-counter .count-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            color: #fff;
+        }
+
+        /* ===== FILTER BAR ===== */
+        .filter-section {
+            background: #fff;
+            padding: 20px 24px;
+            border-radius: 0 0 16px 16px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-md);
+            border-top: 1px solid rgba(0,93,143,0.08);
+        }
+        .filter-section .form-control,
+        .filter-section .form-select {
+            border: 1.5px solid #e2e8ed;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--idb-deep);
+            transition: all 0.2s ease;
+            background-color: var(--idb-sand);
+        }
+        .filter-section .form-control:focus,
+        .filter-section .form-select:focus {
+            border-color: var(--idb-sky);
+            box-shadow: 0 0 0 3px rgba(0,148,212,0.12);
+            background-color: #fff;
+        }
+        .filter-section .form-control::placeholder {
+            color: #9aacb8;
+        }
+        .form-check-input:checked {
+            background-color: var(--idb-blue);
+            border-color: var(--idb-blue);
+        }
+        .form-check-label strong {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--idb-deep);
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            border: none;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: #fff;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--idb-blue), var(--idb-sky));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card-body {
+            padding: 22px;
+        }
+
+        /* ===== JOB TITLE ===== */
+        .job-title {
+            color: var(--idb-deep);
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            margin-bottom: 10px;
+        }
+
+        /* ===== BADGES ===== */
+        .badge-prog {
+            background: linear-gradient(135deg, var(--idb-blue), var(--idb-sky));
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 100px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .badge-loc {
+            background-color: var(--idb-green);
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .card-subtitle {
+            font-size: 0.85em !important;
+            color: #5a7080 !important;
+        }
+
+        /* ===== EDUCATION BOX ===== */
+        .edu-box {
+            background: linear-gradient(135deg, var(--idb-light) 0%, #f0f7fa 100%);
+            padding: 16px;
+            border-left: 3px solid var(--idb-sky);
+            border-radius: 0 10px 10px 0;
+            font-size: 0.84em;
+            margin-bottom: 14px;
+            line-height: 1.55;
+        }
+        .edu-box strong {
+            color: var(--idb-deep);
+            font-size: 0.9em;
+        }
+        .divider-custom {
+            margin: 12px 0;
+            border-top: 1px solid rgba(0,148,212,0.15);
+        }
+
+        /* ===== CATEGORY & TECH BADGES ===== */
+        .cat-badge {
+            font-size: 0.7em;
+            font-weight: 500;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            background-color: var(--idb-deep);
+            color: rgba(255,255,255,0.9);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            letter-spacing: 0.01em;
+        }
+        .tech-badge {
+            font-size: 0.7em;
+            font-weight: 600;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--idb-red), #e0623e);
+            color: white;
+            padding: 3px 9px;
+            border-radius: 5px;
+            display: inline-block;
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== CTA BUTTON ===== */
+        .btn-outline-primary {
+            color: var(--idb-blue);
+            border: 1.5px solid var(--idb-blue);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 8px 18px;
+            transition: all 0.25s ease;
+            letter-spacing: 0.01em;
+        }
+        .btn-outline-primary:hover {
+            background: var(--idb-blue);
+            border-color: var(--idb-blue);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,93,143,0.25);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-note {
+            text-align: center;
+            padding: 32px 0 24px;
+            font-size: 0.78rem;
+            color: #9aacb8;
+        }
+        .footer-note a { color: var(--idb-blue); text-decoration: none; }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 768px) {
+            .hero-header { padding: 32px 0 24px; }
+            .hero-header h2 { font-size: 1.8rem; }
+            .filter-section {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                padding: 16px;
+                border-radius: 0 0 12px 12px;
+                box-shadow: var(--shadow-lg);
+                margin-bottom: 20px;
             }
-        </style>
-    </head>
-    <body>
+            .job-title { font-size: 0.95rem; }
+            .card-body { padding: 16px; }
+            .edu-box { padding: 12px; font-size: 0.8rem; }
+            .btn-mobile-full {
+                width: 100%;
+                margin-top: 14px !important;
+                padding: 11px;
+                font-weight: 600;
+                text-align: center;
+            }
+            .form-switch { margin-top: 14px !important; padding-left: 2.5em; }
+        }
+
+        /* ===== ANIMATION ===== */
+        .job-card {
+            animation: fadeUp 0.4s ease-out both;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-header">
         <div class="container">
-            <h2 class="mb-1" style="color: #004e70;">🔍 IDB internship explorer</h2>
-            <h6 class="text-muted mb-4" style="font-style: italic;">Built by AQR</h6>
-            
-            <div class="filter-section row align-items-center">
-                <div class="col-md-4 mb-2 mb-md-0">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar palabras clave...">
-                </div>
-                <div class="col-md-4 mb-2 mb-md-0">
-                    <select id="categoryFilter" class="form-select">
-                        <option value="All">All areas of specialization</option>
-                        <option value="Public Policy & Administration">Public Policy & Administration</option>
-                        <option value="Economics & Business">Economics & Business</option>
-                        <option value="Data & Tech">Data, Analytics & Tech</option>
-                        <option value="Law & Legal">Law & Legal</option>
-                        <option value="Social Sciences & Urban">Social Sciences & Urban</option>
-                        <option value="Other">Otras áreas / General</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-check form-switch mt-2 mt-md-0 d-flex justify-content-start justify-content-md-end align-items-center">
-                        <input class="form-check-input me-2" type="checkbox" id="graduateFilter" style="transform: scale(1.2);">
-                        <label class="form-check-label" for="graduateFilter"><strong>Only Graduate / Master</strong></label>
-                    </div>
+            <h2>IDB Internship Explorer</h2>
+            <h6>Built by AQR</h6>
+            <div class="hero-counter">
+                <span>Showing</span>
+                <span class="count-num" id="visibleCount">–</span>
+                <span>positions</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filter-section row align-items-center">
+            <div class="col-md-4 mb-2 mb-md-0">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search keywords...">
+            </div>
+            <div class="col-md-4 mb-2 mb-md-0">
+                <select id="categoryFilter" class="form-select">
+                    <option value="All">All areas of specialization</option>
+                    <option value="Public Policy & Administration">Public Policy & Administration</option>
+                    <option value="Economics & Business">Economics & Business</option>
+                    <option value="Data & Tech">Data, Analytics & Tech</option>
+                    <option value="Law & Legal">Law & Legal</option>
+                    <option value="Social Sciences & Urban">Social Sciences & Urban</option>
+                    <option value="Other">Otras áreas / General</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <div class="form-check form-switch mt-2 mt-md-0 d-flex justify-content-start justify-content-md-end align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" id="graduateFilter" style="transform: scale(1.2);">
+                    <label class="form-check-label" for="graduateFilter"><strong>Only Graduate / Master</strong></label>
                 </div>
             </div>
+        </div>
 
-            <div class="row" id="jobContainer">
-    
+        <div class="row" id="jobContainer">
                 <div class="col-md-6 col-lg-4 job-card" data-graduate="true" data-category="Public Policy & Administration, Economics & Business, Data & Tech, Social Sciences & Urban" data-text="idb. urban innovation, evaluation & knowledge management intern education
 : an active graduate student in public policy, urban studies, economics, international development policy, data science, or a related field from an accredited university. the graduation date should be after the internship period.
 languages
@@ -1884,38 +2162,50 @@ Strong skills in MS Office (PowerPoint, Excel, Word) with the ability to produce
             </div>
         </div>
 
-        <script>
-            const searchInput = document.getElementById('searchInput');
-            const graduateFilter = document.getElementById('graduateFilter');
-            const categoryFilter = document.getElementById('categoryFilter');
-            const jobCards = document.querySelectorAll('.job-card');
+        <div class="footer-note">
+            Data sourced from <a href="https://jobs.iadb.org" target="_blank">jobs.iadb.org</a>
+        </div>
+    </div>
 
-            function filterJobs() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const showOnlyGraduate = graduateFilter.checked;
-                const selectedCategory = categoryFilter.value;
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const graduateFilter = document.getElementById('graduateFilter');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const jobCards = document.querySelectorAll('.job-card');
+        const visibleCount = document.getElementById('visibleCount');
 
-                jobCards.forEach(card => {
-                    const text = card.getAttribute('data-text');
-                    const isGraduate = card.getAttribute('data-graduate') === 'true';
-                    const categories = card.getAttribute('data-category');
-                    
-                    const matchesSearch = text.includes(searchTerm);
-                    const matchesGraduate = showOnlyGraduate ? isGraduate : true;
-                    const matchesCategory = selectedCategory === 'All' ? true : categories.includes(selectedCategory);
+        function filterJobs() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const showOnlyGraduate = graduateFilter.checked;
+            const selectedCategory = categoryFilter.value;
+            let count = 0;
 
-                    if (matchesSearch && matchesGraduate && matchesCategory) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
+            jobCards.forEach((card, idx) => {
+                const text = card.getAttribute('data-text');
+                const isGraduate = card.getAttribute('data-graduate') === 'true';
+                const categories = card.getAttribute('data-category');
+                
+                const matchesSearch = text.includes(searchTerm);
+                const matchesGraduate = showOnlyGraduate ? isGraduate : true;
+                const matchesCategory = selectedCategory === 'All' ? true : categories.includes(selectedCategory);
 
-            searchInput.addEventListener('input', filterJobs);
-            graduateFilter.addEventListener('change', filterJobs);
-            categoryFilter.addEventListener('change', filterJobs);
-        </script>
-    </body>
-    </html>
-    
+                if (matchesSearch && matchesGraduate && matchesCategory) {
+                    card.style.display = 'block';
+                    card.style.animationDelay = (count * 0.04) + 's';
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            visibleCount.textContent = count;
+        }
+
+        searchInput.addEventListener('input', filterJobs);
+        graduateFilter.addEventListener('change', filterJobs);
+        categoryFilter.addEventListener('change', filterJobs);
+
+        // Initial count
+        filterJobs();
+    </script>
+</body>
+</html>
